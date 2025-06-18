@@ -25,7 +25,6 @@ errors until the execution succeeds.
 
    ```bash
    ollama pull deepseek-coder:6b
-````
 
 2. Adjust `config/OAI_CONFIG_LIST.json` with your local model configuration:
 
