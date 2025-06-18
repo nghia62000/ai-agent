@@ -1,91 +1,41 @@
-
 # AI Agent System
 
-This project demonstrates a minimal multi-agent setup built with Python. The
-agents collaborate to analyse a user request, generate code, run it and react to
-errors until the execution succeeds.
+This project showcases a lightweight multi-agent workflow. Each agent focuses on a single responsibility and communicates via a simple `GroupChat` controller.
 
 ## Agents
 
-- **Planner** (`planner.py`) – Analyses the user request and splits it into
-  smaller tasks.
-- **CodeWriter** (`code_writer.py`) – Generates source code from a task
-  description.
-- **Executor** (`executor.py`) – Runs Python code or shell commands and returns
-  the output.
-- **Critic** (`critic.py`) – Summarises any error from the executor.
-- **Fixer** (`fixer.py`) – Creates a new prompt for the CodeWriter based on the
-  critic summary.
-- **OSBridge** (`os_bridge.py`) – Forwards macOS-related commands to
-  `tools/macos_use_wrapper.py`.
+- **Planner** – analyse the user request and split it into smaller tasks.
+- **CodeWriter** – generate Python code for a given task.
+- **Executor** – execute the generated code or shell commands.
+- **Critic** – summarise any errors from the executor.
+- **Fixer** – craft a new prompt for the code writer based on critic feedback.
+- **OSBridge** – dispatch macOS-related tasks to `tools/macos_use_wrapper.py`.
+
+## Configuration
+
+Model endpoints are defined in `config/OAI_CONFIG_LIST.json`. Edit this file with your local `Ollama` or OpenAI settings before running the program.
+
+The `workspace/` directory holds any temporary files created during execution. It will be created automatically if missing.
 
 ## Running locally
 
-1. Install [Ollama](https://ollama.com) and pull the DeepSeek model:
+1. Install [Ollama](https://ollama.com) and pull the model:
 
    ```bash
    ollama pull deepseek-coder:6b
-
-2. Adjust `config/OAI_CONFIG_LIST.json` with your local model configuration:
-
-   ```json
-   [
-     {
-       "model": "http://localhost:11434/v1/chat/completions",
-       "api_type": "openai"
-     }
-   ]
    ```
 
-3. Run the program:
+2. Install dependencies and macOS helpers:
+
+   ```bash
+   chmod +x scripts/setup_full.sh
+   ./scripts/setup_full.sh
+   ```
+
+3. Start the chat:
 
    ```bash
    python main.py
    ```
 
-4. Enter a request such as:
-
-   ```
-   Viết app Flask và chạy thử
-   ```
-
-   and observe the agents interacting.
-
----
-
-## 🛠 Cài đặt macOS-use và khởi động hệ thống
-
-To allow the agents to interact with your macOS system (e.g., open Safari, type text), install the [`macOS-use`](https://github.com/browser-use/macOS-use) tool:
-
-```bash
-chmod +x scripts/setup_full.sh
-./scripts/setup_full.sh
-```
-
----
-
-## File `macos_use_wrapper.py`
-
-This helper exposes three functions used by `OSBridge`:
-
-* `open_app(app_name)` – Open the given application.
-* `write_text(text)` – Type text in the active window.
-* `click_button(label)` – Click a button with the specified label.
-
-These are simple wrappers around `macos-use` commands and can be extended.
-
-````
-
----
-
-## ✅ Hành động tiếp theo:
-
-1. Ghi đè nội dung này vào `README.md`.
-2. Commit:
-
-```bash
-git add README.md
-git commit -m "Fix README formatting and finalize agent system docs"
-git push origin main
-````
-
+Follow the prompts and enter a natural language request, for example "Viết app Flask và chạy thử". The agents will collaborate until the task succeeds or the retries are exhausted.

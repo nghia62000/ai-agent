@@ -11,7 +11,7 @@ pip install -e .
 cd ..
 
 echo "📦 Installing AI-agent dependencies..."
-pip install -r agent-system/requirements.txt
+pip install -r requirements.txt
 
 echo "✅ Setup completed successfully."
 
