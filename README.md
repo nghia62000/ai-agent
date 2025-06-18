@@ -1,3 +1,4 @@
+codex/refactor-multi-agent-system-and-optimize-roles
 # AI Agent System
 
 This project demonstrates a minimal multi-agent setup built with Python. The
@@ -50,3 +51,15 @@ This helper exposes three functions used by `OSBridge`:
 - `click_button(label)` – click a button with the specified label.
 
 They are simple placeholders and can be adapted to real automation tools.
+=======
+# ai-agent
+
+This repository demonstrates a simple multi-agent system.
+
+## 🛠 Cài đặt macOS-use và khởi động hệ thống
+
+```bash
+chmod +x scripts/setup_full.sh
+./scripts/setup_full.sh
+```
+ main
