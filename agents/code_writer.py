@@ -1,7 +1,19 @@
+from llm_client import LLMClient
+
+
 class CodeWriter:
-    """Generate code from task description."""
+    """Generate Python code for a task using an LLM."""
+
+    def __init__(self, client: LLMClient | None = None) -> None:
+        self.client = client or LLMClient()
 
     def write_code(self, task: str) -> str:
-        # Placeholder code generation
         print(f"[CodeWriter] generating code for task: {task}")
-        return 'print("Task executed: ' + task.replace("'", "\'") + '")'
+        messages = [
+            {
+                "role": "system",
+                "content": "You write Python 3 code and nothing else.",
+            },
+            {"role": "user", "content": task},
+        ]
+        return self.client.chat(messages)

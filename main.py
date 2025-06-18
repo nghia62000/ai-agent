@@ -5,6 +5,7 @@ from agents.executor import Executor
 from agents.critic import Critic
 from agents.fixer import Fixer
 from agents.os_bridge import OSBridge
+from llm_client import LLMClient
 
 
 class GroupChat:
@@ -64,11 +65,12 @@ def main() -> None:
     os.makedirs("workspace", exist_ok=True)
 
     request = input("User request: ")
-    planner = Planner()
-    code_writer = CodeWriter()
+    llm = LLMClient()
+    planner = Planner(llm)
+    code_writer = CodeWriter(llm)
     executor = Executor()
-    critic = Critic()
-    fixer = Fixer()
+    critic = Critic(llm)
+    fixer = Fixer(llm)
     os_bridge = OSBridge()
 
     chat = GroupChat([planner, code_writer, executor, critic, fixer, os_bridge])

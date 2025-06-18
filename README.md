@@ -13,7 +13,7 @@ This project showcases a lightweight multi-agent workflow. Each agent focuses on
 
 ## Configuration
 
-Model endpoints are defined in `config/OAI_CONFIG_LIST.json`. Edit this file with your local `Ollama` or OpenAI settings before running the program.
+Model endpoints are defined in `config/OAI_CONFIG_LIST.json`. Edit this file with your local `Ollama` or OpenAI settings before running the program. The `llm_client.py` module reads this configuration and uses the `openai` package to send chat requests.
 
 The `workspace/` directory holds any temporary files created during execution. It will be created automatically if missing.
 
@@ -25,7 +25,7 @@ The `workspace/` directory holds any temporary files created during execution. I
    ollama pull deepseek-coder:6b
    ```
 
-2. Install dependencies and macOS helpers:
+2. Install dependencies and macOS helpers (includes `openai`):
 
    ```bash
    chmod +x scripts/setup_full.sh
