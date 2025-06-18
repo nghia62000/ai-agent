@@ -12,3 +12,7 @@ def run_applescript(script: str) -> None:
     """Run an AppleScript via macos-use."""
     subprocess.run(["macos-use", "osascript", script], check=False)
 
+
+if __name__ == "__main__":
+    print(open_app("Safari"))
+
